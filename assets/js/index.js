@@ -1,10 +1,90 @@
 const app = document.getElementById("app")
 
+const users = [
+    {
+        email: 'teste@gmail.com',
+        phone: '99999999999',
+        ref:100,
+        refBy: null
+    },
+    {
+        email: 'tuste@gmail.com',
+        phone: '99999999999',
+        ref:200,
+        refBy: 100
+    },
+    {
+        email: 'toste@gmail.com',
+        phone: '99999999999',
+        ref:300,
+        refBy: 100
+    }
+]
+
+
+const getUser = (userData) =>{
+    return users.find((user)=>{
+        return user.email == userData.email
+    })
+}
+
+
+const getTotalSubscribers = (userData) =>{
+    const subs = users.filter((user) =>{
+        return user.refBy == userData.ref
+    })
+    return subs.length
+}
+
+
+
+
+const showInvite = (userData) =>{
+    app.innerHTML = `
+        <input type="text" id="link" value="https://evento.com?ref=${userData.ref}" disabled>
+
+        <div id="stats">
+        <h4>${getTotalSubscribers(userData)}<h4/>
+        <p>Inscrições feitas<p/>
+        <div/>
+    `
+    
+}
+
+
+const saveUser = (userData) =>{
+    const newUser = {
+        ...userData,
+        ref: Math.round(Math.random( ) * 4000),
+        refBy: 100
+    }
+
+    users.push(newUser)
+    return newUser
+
+
+}
+
+
 const formAction = () => {
     const form = document.getElementById("form")
     form.onsubmit = (event) =>{
         event.preventDefault()
-        alert("olaaa")
+        const formData = new FormData(form)
+        const userData = {
+            email: formData.get('email'),
+            phone: formData.get('phone')
+        }
+
+        const user = getUser(userData)
+        if (user) {
+            showInvite(user)
+        }else{
+            const newUser = saveUser(userData)
+            showInvite(newUserser)
+        }
+
+
     }
 }
 
@@ -24,3 +104,5 @@ const startApp = () =>{
     formAction()
 }
 startApp()
+
+document.getElementById("logo").onclick = () => startApp()
