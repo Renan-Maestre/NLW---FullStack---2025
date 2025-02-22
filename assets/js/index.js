@@ -41,14 +41,34 @@ const getTotalSubscribers = (userData) =>{
 
 const showInvite = (userData) =>{
     app.innerHTML = `
-        <input type="text" id="link" value="https://evento.com?ref=${userData.ref}" disabled>
 
-        <div id="stats">
-        <h4>${getTotalSubscribers(userData)}<h4/>
-        <p>Inscrições feitas<p/>
-        <div/>
+<main>
+      <h3>Inscrição confirmada</h3>
+
+      <p>
+        Convide mais pessoas e concorra a prêmios! <br>
+        Compartilhe o link e acompanhe as incrições:
+      </p>
+
+      <div class="input-group">
+        <label for="link">
+          <img src="https://raw.githubusercontent.com/maykbrito/my-public-files/main/nlw-19/link.svg" alt="link icon">
+        </label>
+
+        <input type="text" id="link" value="https://evento.com?ref=${userData.ref}" disabled>
+      </div>
+    </main>
+
+
+    <section class="stats">
+      <h4>${getTotalSubscribers(userData)}<h4/>
+      <p>Inscriçõs feitas</p>
+    </section>
+
     `
     
+
+    app.setAttribute('class', 'page-invite')
 }
 
 
@@ -89,34 +109,25 @@ const formAction = () => {
 }
 
 
-const updateImageLink = () =>{
-    document.querySelectorAll('img').forEach((img) =>{
-        img.src = `https://raw.githubusercontent.com/maykbrito/my-public-files/main/nlw-19/logo.svg`
-    })
-}
 
 const startApp = () =>{
     const content =  `
-    <header>
-        <img src="logo.svg" alt="logo">
-        <h1>
-            <span>CodeCraft</span><br>
-            Summit 2025
-        </h1>
-    </header>
+    
     <main>
 
       <section class="about">
         <div class="section-header">
           <h2>Sobre o evento</h2>
-          <span>AO VIVO</span>
+          <span class='badge'>AO VIVO</span>
+
+          </div>
 
           <p>
             Um evento feito por e para desenvolvedores apaixonados por criar soluções inovadoras e compartilhar conhecimento. Vamos mergulhar nas últimas tendências em desenvolvimento de software, arquitetura de sistemas e tecnologias emergentes, com palestras, workshops e hackathons. <br>
             15 a 17 de março | Das 18h às 21h |
             Online & Gratuito
           </p>
-        </div>
+        
 
       </section>
 
@@ -135,7 +146,7 @@ const startApp = () =>{
 
             <div class="input-group">
               <label for="phone">
-                <img src= "https://raw.githubusercontent.com/maykbrito/my-public-files/main/nlw-19/phone.svg" alt="phone icon">
+                <img src= "https://raw.githubusercontent.com/maykbrito/my-public-files/main/nlw-19/phone.svg"1'  alt="phone icon">
 
               </label>
               <input type="phone" id="phone" name="phone" placeholder="Telefone">
@@ -146,7 +157,7 @@ const startApp = () =>{
           </div>
           <button>
             Cofirmar
-            <img src="arrow.sgv" alt="Arrow right" class="src">
+            <img src="https://raw.githubusercontent.com/maykbrito/my-public-files/main/nlw-19/arrow.svg" alt="Arrow right" class="src">
           </button>
 
         </form>
@@ -156,9 +167,10 @@ const startApp = () =>{
     `
 
     app.innerHTML = content
-    updateImageLink()
+
+    app.setAttribute('class', 'page-start')
     formAction()
 }
 startApp()
 
-document.getElementById("logo").onclick = () => startApp()
+document.querySelector("header").onclick = () => startApp()
